@@ -23,7 +23,7 @@ function App() {
 
     useEffect(() => {
         convert();
-    }, [from, to, convert]);
+    }, [from, to, convert, amount]);
 
     return (
         <div
