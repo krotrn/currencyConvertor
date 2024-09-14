@@ -1,30 +1,29 @@
 import { useCallback, useEffect, useState } from 'react'
-import  InputBox  from './components/InputBox'
+import InputBox from './components/InputBox'
 import useCurrencyInfo from './hooks/useCurrencyInfo'
 
-
 function App() {
-    const [amount, setAmount] = useState(null)
-    const [from, setFrom] = useState('usd')
-    const [to, setTo] = useState('inr')
-    const [convertedAmount, setConvertedAmount] = useState(null)
+    const [amount, setAmount] = useState(null) // State to store the amount to be converted
+    const [from, setFrom] = useState('usd') // State to store the currency to convert from
+    const [to, setTo] = useState('inr') // State to store the currency to convert to
+    const [convertedAmount, setConvertedAmount] = useState(null) // State to store the converted amount
 
-    const currencyInfo = useCurrencyInfo(from)
+    const currencyInfo = useCurrencyInfo(from) // Hook to get currency information based on the 'from' currency
 
-    const options = Object.keys(currencyInfo)
+    const options = Object.keys(currencyInfo) // Get the list of available currency options
 
     const convert = useCallback(() => {
-        setConvertedAmount(amount * currencyInfo[to]);
-    },[amount, currencyInfo, to])
+        setConvertedAmount(amount * currencyInfo[to]); // Function to convert the amount based on the selected currencies
+    }, [amount, currencyInfo, to])
+
     const swap = () => {
-        setFrom(to)
-        setTo(from)
+        setFrom(to) // Swap the 'from' currency with the 'to' currency
+        setTo(from) // Swap the 'to' currency with the 'from' currency
     }
 
     useEffect(() => {
-        convert();
+        convert(); // Convert the amount whenever 'from', 'to', or 'amount' changes
     }, [from, to, amount, convert]);
-
     return (
         <div
             className="w-full h-screen flex flex-wrap justify-center items-center bg-cover bg-no-repeat"
@@ -45,7 +44,7 @@ function App() {
                                 label="From"
                                 amount={amount}
                                 currencyOptions={options}
-                                onCurrencyChange={(currency) =>  setFrom(currency) } // setTrom(currency) to set the currency from other the input box
+                                onCurrencyChange={(currency) => setFrom(currency)} // setFrom(currency) to set the currency from the input box
                                 selectCurrency={from} // selectCurrency={from} to select the currency from the input box    
                                 amountDisabled={false}
                                 onAmountChange={(amount) => setAmount(amount || null)}
@@ -62,11 +61,11 @@ function App() {
                         </div>
                         <div className="w-full mt-1 mb-4">
                             <InputBox
-                                label="to"
+                                label="To"
                                 amount={convertedAmount || null}
                                 currencyOptions={options}
-                                onCurrencyChange={(currency) => setTo(currency)} // setTo(currency) to set the currency from other the input box
-                                selectCurrency={to} // selectCurrency={from} to select the currency from the input box    
+                                onCurrencyChange={(currency) => setTo(currency)} // setTo(currency) to set the currency from the input box
+                                selectCurrency={to} // selectCurrency={to} to select the currency from the input box    
                                 amountDisabled={true}
                             />
                         </div>
