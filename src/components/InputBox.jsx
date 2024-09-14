@@ -2,7 +2,7 @@ import React, { useId } from 'react'
 
 function InputBox({
   label,    // dependend on these props for input Box
-  amount,
+  amount ,
   onAmountChange,
   onCurrencyChange,
   currencyOptions = [],
@@ -26,7 +26,7 @@ function InputBox({
           type="number"
           placeholder="Amount"
           disabled={amountDisabled}
-          value={amount}
+          value={amount || ""}
           // on change event && to check if onAmountChange is present Number(e.target.value) to convert string to number
           onChange={(e) => onAmountChange && onAmountChange(Number(e.target.value))}
         />

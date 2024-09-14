@@ -1,34 +1,39 @@
-import { useCallback, useEffect, useState } from 'react'
-import InputBox from './components/InputBox'
-import useCurrencyInfo from './hooks/useCurrencyInfo'
+import { useCallback, useEffect, useState } from 'react';
+import InputBox from './components/InputBox';
+import useCurrencyInfo from './hooks/useCurrencyInfo';
 
 function App() {
-    const [amount, setAmount] = useState(null) // State to store the amount to be converted
-    const [from, setFrom] = useState('usd') // State to store the currency to convert from
-    const [to, setTo] = useState('inr') // State to store the currency to convert to
-    const [convertedAmount, setConvertedAmount] = useState(null) // State to store the converted amount
+    const [amount, setAmount] = useState(null); // State to store the amount to be converted
+    const [from, setFrom] = useState('usd'); // State to store the currency to convert from
+    const [to, setTo] = useState('inr'); // State to store the currency to convert to
+    const [convertedAmount, setConvertedAmount] = useState(null); // State to store the converted amount
 
-    const currencyInfo = useCurrencyInfo(from) // Hook to get currency information based on the 'from' currency
+    const currencyInfo = useCurrencyInfo(from); // Hook to get currency information based on the 'from' currency
 
-    const options = Object.keys(currencyInfo) // Get the list of available currency options
+    const options = Object.keys(currencyInfo); // Get the list of available currency options
 
     const convert = useCallback(() => {
-        setConvertedAmount(amount * currencyInfo[to]); // Function to convert the amount based on the selected currencies
-    }, [amount, currencyInfo, to])
+
+        setConvertedAmount(amount * currencyInfo[to]); // Convert the amount based on the selected currencies
+
+    }, [amount, currencyInfo, to]);
 
     const swap = () => {
-        setFrom(to) // Swap the 'from' currency with the 'to' currency
-        setTo(from) // Swap the 'to' currency with the 'from' currency
-    }
+        setFrom(to); // Swap the 'from' currency with the 'to' currency
+        setTo(from); // Swap the 'to' currency with the 'from' currency
+    };
 
     useEffect(() => {
         convert(); // Convert the amount whenever 'from', 'to', or 'amount' changes
     }, [from, to, amount, convert]);
+
     return (
         <div
             className="w-full h-screen flex flex-wrap justify-center items-center bg-cover bg-no-repeat"
             style={{
-                backgroundImage: `url('https://img.freepik.com/free-vector/hand-drawn-flat-design-stock-market-concept_23-2149167961.jpg')`,
+                backgroundImage: `url('https://img.freepik.com/free-vector/business-risk-analysis_53876-90454.jpg?t=st=1726342224~exp=1726345824~hmac=2ffb339c3d84667b6db169a69701127c3424ed65c823b53fd6f75824eef0fc53&w=996')`,
+                backgroundSize: 'cover',
+                backgroundPosition: 'center',
             }}
         >
             <div className="w-full">
@@ -79,4 +84,4 @@ function App() {
     );
 }
 
-export default App
+export default App;
