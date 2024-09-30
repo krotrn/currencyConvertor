@@ -1,26 +1,27 @@
 import React, { useCallback } from 'react';
 
 function InputBox({
-  label,                // Input label
-  amount,               // Amount value for the input
-  onAmountChange,       // Callback for amount input changes
-  onCurrencyChange,     // Callback for currency select changes
-  currencyOptions = [], // List of available currencies
-  selectCurrency = "usd", // Default selected currency
-  amountDisabled = false,  // Disable amount input
-  currencyDisable = false, // Disable currency select
-  className = "",       // Additional CSS classes for the container
+  label,                
+  amount,               
+  onAmountChange,       
+  onCurrencyChange,     
+  currencyOptions = [], 
+  selectCurrency = "usd", 
+  amountDisabled = false,  
+  currencyDisable = false, 
+  className = "",       
 }) {
-  const amountInputId = React.useId(); // Unique ID for input accessibility
+  const amountInputId = React.useId();
 
-  // Memoize the onChange handler for amount input
+  // Memoized onChange handler for amount input
   const handleAmountChange = useCallback((e) => {
+    const value = e.target.value;
     if (onAmountChange) {
-      onAmountChange(Number(e.target.value)); // Convert string to number
+      onAmountChange(value); 
     }
   }, [onAmountChange]);
 
-  // Memoize the onChange handler for currency select
+  // Memoized onChange handler for currency select
   const handleCurrencyChange = useCallback((e) => {
     if (onCurrencyChange) {
       onCurrencyChange(e.target.value);
@@ -40,7 +41,7 @@ function InputBox({
           type="number"
           placeholder="Amount"
           disabled={amountDisabled}
-          value={amount || ""} // Set default value to empty string if null
+          value={amount || ""} 
           onChange={handleAmountChange}
         />
       </div>
@@ -64,4 +65,4 @@ function InputBox({
   );
 }
 
-export default React.memo(InputBox); // Memoize the component for performance
+export default React.memo(InputBox);
