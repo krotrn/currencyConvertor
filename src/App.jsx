@@ -1,16 +1,16 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useState, useMemo } from 'react';
 import InputBox from './components/InputBox';
 import useCurrencyInfo from './hooks/useCurrencyInfo';
 
 function App() {
-    const [amount, setAmount] = useState(null); // State to store the amount to be converted
+    const [amount, setAmount] = useState(0); // State to store the amount to be converted
     const [from, setFrom] = useState('usd'); // State to store the currency to convert from
     const [to, setTo] = useState('inr'); // State to store the currency to convert to
-    const [convertedAmount, setConvertedAmount] = useState(null); // State to store the converted amount
+    const [convertedAmount, setConvertedAmount] = useState(0); // State to store the converted amount
 
     const currencyInfo = useCurrencyInfo(from); // Hook to get currency information based on the 'from' currency
 
-    const options = Object.keys(currencyInfo); // Get the list of available currency options
+    const options = useMemo(() => Object.keys(currencyInfo), [currencyInfo]); // Get the list of available currency options
 
     const convert = useCallback(() => {
 
